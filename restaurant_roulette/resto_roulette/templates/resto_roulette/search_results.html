@@ -1,0 +1,33 @@
+{% extends "resto_roulette/base.html" %}
+{% block content %}
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+<main role = "main" class = "inner cover">
+<h1 class = "cover-heading" >Search Results</h1>
+<br>
+<div class="card-deck">
+{% for business in search_results %}
+<div class="card">
+  <img id='biz-pic'class="card-img-top" src='{{business.image_url}}' alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{business.name}}</h5>
+    <p class="card-text">{{business.location.display_address}}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+  <!-- <li>{{ forloop.counter}} : {{business.name}}  {{business.location.display_address}}</li> -->
+  <!-- <p> {% for review in business.reviews %} </p>
+    <p>{{review.user.name}}   : "{{review.text}}""</p> {% endfor %} -->
+
+{% endfor %}
+
+</main>
+{% endblock content %}
