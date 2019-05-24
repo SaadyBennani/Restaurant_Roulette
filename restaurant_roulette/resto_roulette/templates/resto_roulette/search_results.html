@@ -1,33 +1,76 @@
 {% extends "resto_roulette/base.html" %}
+{% load static %}
+
+{% block head_js %}
+  <script>
+    const what = '{{ what }}'
+    const where = '{{ where }}'
+    const user = '{{ user }}'
+  </script>
+{% endblock %}
+
 {% block content %}
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-
+<div class='biz_search_results'>
 <main role = "main" class = "inner cover">
-<h1 class = "cover-heading" >Search Results</h1>
-<br>
-<div class="card-deck">
-{% for business in search_results %}
-<div class="card">
-  <img id='biz-pic'class="card-img-top" src='{{business.image_url}}' alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">{{business.name}}</h5>
-    <p class="card-text">{{business.location.display_address}}</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Cras justo odio</li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Vestibulum at eros</li>
-  </ul>
-  <div class="card-body">
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
-  </div>
-</div>
-  <!-- <li>{{ forloop.counter}} : {{business.name}}  {{business.location.display_address}}</li> -->
-  <!-- <p> {% for review in business.reviews %} </p>
-    <p>{{review.user.name}}   : "{{review.text}}""</p> {% endfor %} -->
 
-{% endfor %}
-
+  <nav id='biz_search'class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="http://127.0.0.1:8000/"><img src="static/assets/logo.png"></a>
+    <h1 id="rr_logo">Restaurant Roulette</h1>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+          <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="http://127.0.0.1:8000/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="search">Search</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#featured">Featured</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="queue">Queue</a>
+          </li>
+        </ul>
+    </div>
+</nav>
 </main>
+</div>
+<div class="offset"id='app'>
+  <br />
+  <div id="featured" class="offset">
+    <div class="jumbotron container-fluid">
+
+      <div class="col-12 text-center">
+        <h3 class="heading text-center">[[user]]'s Search Results</h3>
+      </div>
+        <div class="heading-underline"></div>
+      <div class="row no-padding">
+          <card
+            v-for='business in info'
+            v-bind:business='business'
+            v-bind:stars='getStarRating(business.rating)'
+            v-bind:address='parseAddress(business.location.display_address)'
+            v-bind:id=[[business.id]]
+          ></card>
+        </div>
+        <br />
+  <div class="col-12 text-center">
+    <button class='btn-search' type='submit'>Back to Search</button>
+    <button v-on:click='redirectToQueue'class='btn-search' type='submit'>Continue to Queue</button>
+   </div>
+</div>
+</div>
+</div>
+
+
+<!-- </main> -->
 {% endblock content %}
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{% static 'resto_roulette/js/yelpAPI_calls.js' %}"></script>
+
+{% endblock %}

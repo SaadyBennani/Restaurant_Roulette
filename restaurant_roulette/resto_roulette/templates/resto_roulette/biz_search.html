@@ -1,16 +1,66 @@
 {% extends "resto_roulette/base.html" %}
+{% load static %}
 {% block content %}
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
+
+<div class='biz_search_pg'>
 <main role = "main" class = "inner cover">
-<h1 class = "cover-heading" > Business Search!</h1>
-<br>
-<form method='POST'>
-  {% csrf_token %}
-  {{form.as_p}}
-  <input type = 'submit' value = 'Search'/>
-  </form>
+
+  <nav id='biz_search'class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="http://127.0.0.1:8000/"><img src="static/assets/logo.png"></a>
+    <h1 id="rr_logo">Restaurant Roulette</h1>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+          <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="http://127.0.0.1:8000/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="search">Search</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#featured">Featured</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Queue</a>
+          </li>
+        </ul>
+    </div>
+</nav>
 </main>
 <br>
+<div id='app2'>
+<div id=''class='offset search'>
+<form method='POST'>
+  {% csrf_token %}
+  <fieldset>
+      <legend> Business Search</legend>
+  </fieldset>
+    <div class='inner-form'>
+     <div class='left'>
+      <div class='input-wrap first'>
+      <div class='input-field first'>
+        <label>WHAT</label>
+        <input type='text' name='what' placeholder="ex: Mexican, Sushi, Dive-Bar" />
+      </div>
+      </div>
+      <div class='input-wrap second'>
+      <div class='input-field second'>
+        <label>WHERE</label>
+        <input type='text' name='where' placeholder=""/>
+        </div>
+      </div>
+      </div>
+      <button class='btn-search' type='submit'>SEARCH</button>
+      </div>
 
+  <!-- {{form.as_p}} -->
+  <!-- <input type = 'submit' value = 'Search'/> -->
+
+  </form>
+<br>
+  </div>
+  </div>
 {% endblock content %}
