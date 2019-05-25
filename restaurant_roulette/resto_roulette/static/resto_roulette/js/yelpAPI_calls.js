@@ -66,14 +66,14 @@ const app = new Vue({
     redirectToQueue: function() {
       this.addToQueue()
       axios
-        .post(site_root+'queue', {
+        .post(site_root+'add_queue', {
             'biz_queue': this.queue
         })
         .then(response => {
           console.log(this.queue);
           console.log(eval(response));
 
-          // location.assign(site_root+'queue');
+          window.location.href=site_root+'queue';
 
         })
         .catch(function (error) {
@@ -86,7 +86,7 @@ const app = new Vue({
         params: {
           'term': this.what,
           'location': this.where,
-          'limit': 15,
+          'limit': 6,
           'radius': 10000,
         },
         headers: this.headers

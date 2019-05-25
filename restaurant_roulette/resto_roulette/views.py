@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import Business_Search
+from .models import Business_Search, Queue
 import requests
 import json
 
@@ -12,20 +12,36 @@ def index(request):
     return render(request, 'resto_roulette/index.html')
 
 def queue(request):
-    if request.method == 'POST':
-        biz_queue = json.loads(request.body)
-        # response = JsonResponse(biz_queue, safe=False)
-        context = {
-            'biz_queue': JsonResponse(biz_queue, safe=False)
-        }
-        print(context)
-        print(biz_queue)
-        return render(request, 'resto_roulette/queue.html', context)
+    # if Queue.objects.filter(user=request.user).exists():
+    #     queue = Queue.objects.get(user=request.user)
+    # # else:
+    # #     queue = Queue(user=request.user, biz_data='')
+    # #     queue.save()
+    #
+    # # response = JsonResponse(biz_queue, safe=False)
+    # context = {
+    #     'biz_queue': queue.biz_data
+    # }
+    # print(context)
+    # return render(request, 'resto_roulette/queue.html', context)
     return render(request, 'resto_roulette/queue.html')
 
 
-
-
+def add_to_queue(request):
+    if request.method == 'POST':
+        biz_queue = json.loads(request.body).get('biz_queue')
+        print(biz_queue)
+        if Queue.objects.filter(user=request.user).exists():
+            print('exists')
+            queue = Queue.objects.get(user=request.user)
+            queue.add(biz_queue)
+        else:
+            print('creating')
+            queue = Queue(user=request.user, biz_data=json.dumps(biz_queue))
+            queue.save()
+    else:
+        queue = Queue.objects.get(user=request.user)
+    return JsonResponse(queue.biz_data, safe=False)
 
 def Business_search(request):
     if request.method == 'POST':
