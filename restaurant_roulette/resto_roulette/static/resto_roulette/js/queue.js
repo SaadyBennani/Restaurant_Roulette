@@ -32,37 +32,6 @@ Vue.component('card', {
   `
 })
 
-Vue.component('randcard', {
-  props: [
-    'randomBiz',
-    'business',
-    'address',
-    'stars',
-    'url',
-    'id',
-  ],
-  template: `
-
-  <div class="col-md-4">
-      <div class="card border-danger text-center" id="featured_cards">
-      <img class="card-img-top " v-bind:src="business.image_url"/>
-      <div class="card-body">
-        <h4>{{business.name}}</h4>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">{{address}}</li>
-          <li class="list-group-item">{{business.display_phone}}</li>
-          <li class="list-group-item">
-            <img v-bind:src='stars'></img>
-          </li>
-          </ul>
-          <div class="card-body links">
-          <a v-bind:href="business.url" class="card-link"><img class="card-link"src="static/assets/yelp_fullcolor.png"></a>
-    </div>
-
-  `
-})
-
 const app2 = new Vue({
   el: '#app2',
   delimiters: ['[[',']]'],
@@ -80,7 +49,7 @@ const app2 = new Vue({
   },
   methods: {
     randomResto: function() {
-      this.randomBiz = this.queue[Math.floor(Math.random()*app2.queue.length)]
+      this.randomBiz = this.queue[Math.floor(Math.random()*this.queue.length)]
       return console.log('sucess')
     },
     parseAddress: function(display_address) {
@@ -92,6 +61,7 @@ const app2 = new Vue({
     .then(response => {
       this.queue = JSON.parse(response.data)
       console.log(this.queue)
+      this.randomResto()
     })
   },
   getStarRating: function(rating) {
@@ -117,6 +87,5 @@ const app2 = new Vue({
 
   mounted: function() {
     this.getQueue()
-
   }
 });

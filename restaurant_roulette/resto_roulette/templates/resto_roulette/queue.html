@@ -72,7 +72,6 @@
       </div>
       <div class="modal-body">
         <card
-          v-for='business in randomBiz'
           v-bind:business='randomBiz'
           v-bind:stars='getStarRating(randomBiz.rating)'
           v-bind:address='parseAddress(randomBiz.location.display_address)'
