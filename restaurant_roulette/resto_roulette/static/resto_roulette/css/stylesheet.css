@@ -22,6 +22,7 @@ textarea {
   /* 2 */
 }
 
+
 .jumbotron {
   border-radius: 0;
   padding: 3rem 0 2rem;
@@ -63,6 +64,7 @@ body {
 
 #featured_cards {
   width: 18rem;
+  
 }
 
 .card-img-top {

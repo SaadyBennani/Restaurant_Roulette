@@ -6,6 +6,7 @@
     const what = '{{ what }}'
     const where = '{{ where }}'
     const user = '{{ user }}'
+    const queue = '{{biz_queue}}'
   </script>
 {% endblock %}
 
@@ -31,46 +32,70 @@
             <a class="nav-link" href="http://127.0.0.1:8000/#featured">Featured</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="queue">Queue</a>
+            <a class="nav-link" href="#">Queue</a>
           </li>
         </ul>
     </div>
 </nav>
 </main>
 </div>
-<div class="offset"id='app'>
+<div class="offset"id='app2'>
   <br />
   <div id="featured" class="offset">
     <div class="jumbotron container-fluid">
 
       <div class="col-12 text-center">
-        <h3 class="heading text-center">[[user]]'s Search Results</h3>
+        <h3 class="heading text-center">[[user]]'s Queue</h3>
       </div>
         <div class="heading-underline"></div>
       <div class="row no-padding">
           <card
-            v-for='business in info'
+            v-for='business in queue'
             v-bind:business='business'
             v-bind:stars='getStarRating(business.rating)'
             v-bind:address='parseAddress(business.location.display_address)'
-            v-bind:id=[[business.id]]
           ></card>
+
+
         </div>
-        <br />
-  <div class="col-12 text-center">
-    <button class='btn-search' type='submit'>Back to Search</button>
-    <button v-on:click='redirectToQueue'class='btn-search' type='submit'>Continue to Queue</button>
-   </div>
-</div>
-</div>
-</div>
+        <div class="col-12 text-center">
+          <button class='btn-search' onclick='window.location.href = "http://127.0.0.1:8000/search"'>Back to Search</button>
+          <button v-on:click='randomResto'data-toggle="modal" data-target="#myModal"class='btn-search' type='button'>Spin</button>
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">We've found the perfect place!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <card
+          v-for='business in randomBiz'
+          v-bind:business='randomBiz'
+          v-bind:stars='getStarRating(randomBiz.rating)'
+          v-bind:address='parseAddress(randomBiz.location.display_address)'
+        ></card>
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+         </div>
+        </div>
+        </div>
+        </div
 
-<!-- </main> -->
+<!-- </main>
 {% endblock content %}
 {% block js %}
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="{% static 'resto_roulette/js/yelpAPI_calls.js' %}"></script>
+<script src="{% static 'resto_roulette/js/queue.js' %}"></script>
 
 {% endblock %}

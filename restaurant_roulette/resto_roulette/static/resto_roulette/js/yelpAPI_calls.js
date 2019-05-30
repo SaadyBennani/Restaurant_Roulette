@@ -86,7 +86,7 @@ const app = new Vue({
         params: {
           'term': this.what,
           'location': this.where,
-          'limit': 6,
+          'limit': 15,
           'radius': 10000,
         },
         headers: this.headers
